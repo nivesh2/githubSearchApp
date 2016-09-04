@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" ng-app="gitAPP">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finding GITHUB Projects">
+    <title>TopGit | SAPLabs HackerEarth Project</title>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="css/rzslider.css">
+    <link rel="stylesheet" href="css/ngProgress.css">
+    <link rel="stylesheet" href="css/topGit.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/5.4.3/rzslider.min.js"></script>
+    <script src="js/ngProgress.min.js"></script>
+    <script src="js/topGit.js"></script>
+
+</head>
+<body>
+
+<div id="layout" class="pure-g" ng-controller="gitController as ctrl">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+
+        <div class="header">
+            <img src="pics/github02.png" alt="" width="75px" height="75px" />
+            <h1 class="brand-title">TopGit</h1>
+            <h2 class="brand-tagline">Finding the Best github Projects</h2>
+            <h3 class="" ng-show="ctrl.ratelimit">Rate limit: {{ctrl.ratelimit.remaining}} out of {{ctrl.ratelimit.limit}} </h3>
+            <div class="nv-slider" ng-show="ctrl.data">
+                <rzslider
+                     rz-slider-model="slider.value"
+                     rz-slider-options="slider.options"></rzslider>
+            </div>
+            <nav class="nav" ng-show="ctrl.data">
+                <ul class="nav-list">
+                    <li class="nav-item">
+
+                        <a class="pure-button" href="#" ng-click="ctrl.loadFilter()">Filter</a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="content pure-u-1 pure-u-md-3-4" ng-init="ctrl.init()">
+        <div>
+
+          <form class="pure-form pure-form-stacked">
+            <legend>Search repositories</legend>
+            <input ng-model="ctrl.search" class="pure-input-1"  type="text" placeholder="Search (by language)">
+            <button ng-click="ctrl.loadSearch()" class="pure-button pure-button-primary">Search</button>
+          </form>
+
+            <div class="posts">
+                <h1 class="content-subhead">Repositors</h1>
+
+                <!-- A Single Repository -->
+                <section class="post" ng-repeat="i in ctrl.items">
+                    <header class="post-header">
+                        <img class="post-avatar" alt="avatar" height="48" width="48" src="pics/git.png">
+
+                        <a class="post-title" ng-href="{{i.html_url}}" target="_blank">{{i.owner.login}}/{{i.name}}</a>
+
+                        <p class="post-meta">
+                            Language: {{i.language}} <br id="nv-break"> |  Stars: <span class="post-category post-category-design">{{i.stargazers_count}}</span>
+                            |
+                            fork
+                             <span class="post-category post-category-pure">{{i.forks}}</span>
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>{{i.description}}</p>
+                    </div>
+                    <hr>
+                </section>
+
+            </div>
+
+            <div class="footer">
+                <div class="pure-menu pure-menu-horizontal">
+                    <a href="http://niveshsingh.com/portfolio/" class="pure-menu-link">created with love by nivesh, check out my porfolio</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+</html>
